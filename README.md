@@ -34,6 +34,11 @@ Połączenie z chmurą/działanie online (Azure + aplikacja desktopowa) jest spr
 
 ### Aplikacja desktopowa
 
+![Screenshot](images/prototipe1.png)
+![Screenshot](images/prototipe2.png)
+![Screenshot](images/prototipe3.png)
+![Screenshot](images/prototipe4.png)
+
 ### Aplikacja webowa
 
 ![Screenshot](images/275003850_697706734911582_2164206151481655743_n.png)
