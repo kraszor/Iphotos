@@ -1,0 +1,26 @@
+{% extends 'photo/base.html'%}
+{% load static %}
+{% block title %}Download{% endblock %}
+{% block body %}
+    <div>
+    <div>
+    <div>
+    <div class="grid">
+                    <div class="gridRow gridContainer imageRight gridVisible">
+                        <img class="gridImage featureImage" alt="" src="{% static 'photo/images/full_app.png' %}">
+                        <div class="gridDescription" style="margin-top: 20px">
+                            <h2 class="grid-h2">Download header</h2>
+                            <div class="gridText gridTextMedium gridSubtitle">
+                                Download description
+                            </div>
+                            <div style="margin-top: 40px;display: flex; justify-content: center">
+                                <a href="{% url 'photo:download_app' %}" class="btn download_button"><span class="fas fa-download"></span>&nbsp;
+                                    Download IPhotos</a>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

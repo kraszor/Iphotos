@@ -1,0 +1,143 @@
+{% extends 'photo/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block static_files %}
+    <script>
+        function isScrolledIntoDiv(elem)
+        {
+            var docViewTop = $(window).scrollTop();
+            var docViewBottom = docViewTop + $(window).height();
+
+            var elemTop = $(elem).offset().top;
+            var elemBottom = elemTop + $(elem).height();
+            return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+        }
+        function first()
+        {
+            {#var condition1 = isScrolledIntoDiv('#firstGrid');#}
+            {##}
+            {#if (condition1) {#}
+            {#    $('#firstGrid').addClass("gridVisible");#}
+
+
+                $('#firstGrid').addClass("gridVisible");
+        }
+        function second()
+        {
+            {#var condition2 = isScrolledIntoDiv('#secondGrid');#}
+            {##}
+            {#if (condition2) {#}
+            {#    $('#secondGrid').addClass("gridVisible");#}
+
+            $('#secondGrid').addClass("gridVisible")
+        }
+        function third()
+        {
+            {#var condition3 = isScrolledIntoDiv('#thirdGrid');#}
+            {##}
+            {#if (condition3) {#}
+            {#    $('#thirdGrid').addClass("gridVisible");#}
+
+            $('#thirdGrid').addClass("gridVisible")
+        }
+        function fourth()
+        {
+            {#var condition4 = isScrolledIntoDiv('#fourthGrid');#}
+            {##}
+            {#if (condition4) {#}
+            {#    $('#fourthGrid').addClass("gridVisible");#}
+
+            $('#fourthGrid').addClass("gridVisible");
+
+        }
+        function init() {
+            var waypoint1 = new Waypoint({
+                element: document.getElementById('firstGrid'),
+                handler: function (direction) {
+                    first();
+                },
+                offset: '90%'
+
+            })
+            var waypoint2 = new Waypoint({
+                element: document.getElementById('secondGrid'),
+                handler: function (direction) {
+                    second();
+                },
+                offset: '75%'
+            })
+            var waypoint3 = new Waypoint({
+                element: document.getElementById('thirdGrid'),
+                handler: function (direction) {
+                    third();
+                },
+                offset: '75%'
+            })
+            var waypoint4 = new Waypoint({
+                element: document.getElementById('fourthGrid'),
+                handler: function (direction) {
+                    fourth();
+                },
+                offset: '75%'
+            })
+        }
+
+        $(window).on('load', function() {
+            init();
+          })
+    </script>
+{% endblock %}
+{% block body %}
+    <div>
+        <div>
+            <div>
+
+                <div class="grid">
+                    <div id="firstGrid" class="gridRow gridContainer imageLeft">
+                        <img class="gridImage featureImage" alt="" src="{% static 'photo/images/1.png' %}">
+                        <div class="gridDescription">
+                            <h2 class="grid-h2">Header 1</h2>
+                            <div class="gridText gridTextMedium gridSubtitle">
+                                Description 1
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid gridGreyBackground">
+                    <div id="secondGrid" class="gridRow gridContainer imageRight">
+                        <div class="gridDescription">
+                            <h2 class="grid-h2">Header 2</h2>
+                            <div class="gridText gridTextMedium gridSubtitle">
+                                Description 2
+                            </div>
+                        </div>
+                        <img class="gridImage featureImage" alt="" src="{% static 'photo/images/2.png' %}">
+                    </div>
+                </div>
+                <div class="grid">
+                    <div id="thirdGrid" class="gridRow gridContainer imageLeft">
+                        <img class="gridImage featureImage" alt="" src="{% static 'photo/images/3.png' %}">
+                        <div class="gridDescription">
+                            <h2 class="grid-h2">Header 3</h2>
+                            <div class="gridText gridTextMedium gridSubtitle">
+                                Description 3
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid gridGreyBackground">
+                    <div id="fourthGrid" class="gridRow gridContainer imageRight">
+                        <div class="gridDescription">
+                            <h2 class="grid-h2">Header 4</h2>
+                            <div class="gridText gridTextMedium gridSubtitle">
+                                Description 4
+                            </div>
+                        </div>
+                        <img class="gridImage featureImage" alt="" src="{% static 'photo/images/4.png' %}">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

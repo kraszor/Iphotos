@@ -1,0 +1,24 @@
+{% extends 'photo/base.html'%}
+{% block title %}Login{% endblock %}
+{% block body %}
+    <div class="form_container">
+    <h1>Login</h1>
+    <br/>
+    <form action="" method="POST">
+        {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input placeholder="Username" type="text" class="form-control" name="username" id="username" aria-describedby="usernameHelp">
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input placeholder="Password" type="password" id="password1" class="form-control" name="password" aria-describedby="password1Help">
+            </div>
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <div style="display: flex; justify-content: right;">
+            <input type="submit" value="Submit" class="btn confirm" style="margin-left:auto;">
+            <a href="{% url 'users:reset_password' %}" role="button" class="btn confirm">Forgot password?</a>
+        </div>
+    </form>
+    </div>
+{% endblock %}

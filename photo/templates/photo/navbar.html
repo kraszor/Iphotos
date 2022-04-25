@@ -1,0 +1,62 @@
+<nav class="navbar sticky-top navbar-expand-md" style="background-image: linear-gradient(to bottom right, mediumpurple, royalblue)">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" id="logo" href="{% url 'photo:home' %}">
+                <h2>IPhotos</h2>
+            </a>
+        </div>
+        <button type="button" style="border-color: white; background-color: transparent;" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-controls="navbarNav" aria-label="Toggle navigation">
+                <span class="fas fa-bars" style="color: white;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{% url 'photo:download' %}" class="nav-link"><span class="fas fa-download"></span>&nbsp;
+                        Download
+                    </a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'photo:create_group' %}" class="nav-link"><span class="fas fa-plus"></span>&nbsp;
+                        Create group
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><span class="fas fa-image"></span>&nbsp;
+                        Your groups
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'users:profile' %}" class="nav-link">
+                        <span class="fas fa-user-circle" aria-hidden="true"></span>&nbsp;
+                        My account
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:logout' %}" class="nav-link">
+                        <span class="fas fa-sign-out-alt" aria-hidden="true"></span>&nbsp;
+                        Log&nbsp;out
+                    </a>
+                </li>
+                {% else %}
+                   <li class="nav-item">
+                    <a href="{% url 'users:register' %}" class="nav-link">
+                        <span class="fas fa-user-plus" aria-hidden="true"></span>&nbsp;
+                        Register
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:login' %}" class="nav-link">
+                        <span class="fas fa-sign-in-alt" aria-hidden="true"></span>&nbsp;
+                        Log in
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
