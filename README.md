@@ -4,7 +4,7 @@
 
 ### Uruchomienie
 
-W celu uruchomienia priorytetu aplikacji należy wejść pod poniższy link:<br>
+W celu uruchomienia prototypu aplikacji należy wejść w poniższy link:<br>
 https://iphotos-pap.herokuapp.com<br>
 
 ### Sposób wykonania deploy'a
