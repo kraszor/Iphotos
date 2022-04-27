@@ -11,6 +11,7 @@ urlpatterns = [
     path('download/', views.download, name='download'),
     path('download_app', views.export, name='download_app'),
     path('group/create/', views.GroupCreate.as_view(), name='create_group'),
+    path('groups', views.GroupsView.as_view(), name='groups')
 
 
 ]

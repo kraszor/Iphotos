@@ -13,3 +13,6 @@ class CreateGroupForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description of the group'}),
             'users': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
+
+    # def __init__(self, user_id, *args, **kwargs):
+    #     self.fields['users'] = forms.ModelMultipleChoiceField(queryset=User.objects.exclude(user=user_id), widget=forms.SelectMultiple(attrs={'class': 'form-control'}))

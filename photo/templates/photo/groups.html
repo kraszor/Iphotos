@@ -1,0 +1,9 @@
+{% extends 'photo/base.html'%}
+{% block title %}Register{% endblock %}
+{% block body %}
+    {% for group in groups %}
+        {{ group.name }}
+        {{ group.description }}
+        {{ group.users.all }}
+    {% endfor %}
+{% endblock %}
