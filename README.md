@@ -30,6 +30,20 @@ Desktopowa przeglądarka graficzna z możliwością tagowania zdjęć oraz tworz
 Priotytetowe jest lokalne działanie aplikacji (aplikacja desktopowa offline).<br/>
 Połączenie z chmurą/działanie online (Azure + aplikacja desktopowa) jest sprawą drugorzędną.
 
+### Diagram Warstw
+![Screenshot](images/DiagramWarstw.png)
+
+### Relacje encji w bazie danych SQLite (stan obecny, przewidywane rozbudowanie)
+
+![Screenshot](images/Diagram_.png)
+
+## Uruchomienie
+
+Sposób uruchomienia aplikacji webowej i desktopowej oraz obecnie działające funkcjonalności
+znadują się w plikach readme odpowiednich branchy:
+Branch web-app - aplikacja webowa
+Branch master - aplikacja desktopowa
+
 ## Prezentacja
 
 ### Aplikacja desktopowa
