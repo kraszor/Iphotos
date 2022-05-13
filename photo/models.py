@@ -9,6 +9,10 @@ class UsersGroup(models.Model):
     # owner = models.CharField(max_length=100, default=None, editable=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+', default=None, editable=False)
     name = models.fields.CharField(max_length=150)
+    photo_count = models.fields.IntegerField(default=0)
+    tags = models.fields.CharField(max_length=200, default="empty")
+    color_group = models.fields.CharField(max_length=50, default="unknown")
+    is_local = models.fields.BooleanField(default=False)
     create_time = models.fields.DateTimeField(auto_now_add=True)
     edit_time = models.fields.DateTimeField(auto_now=True)
     description = models.fields.TextField(max_length=500)
@@ -20,7 +24,7 @@ class UsersGroup(models.Model):
 
 
 class Image(models.Model):
-    source = models.URLField()
+    source = models.CharField(max_length=150)
     resolution_width = models.fields.IntegerField()
     resolution_height = models.fields.IntegerField()
     size = models.fields.DecimalField(max_digits=4, decimal_places=2)
@@ -28,8 +32,8 @@ class Image(models.Model):
 
 class Place(models.Model):
     name = models.fields.CharField(max_length=100, default="Unknown")
-    latitude = models.fields.DecimalField(max_digits=4, decimal_places=2, default=None)
-    longitude = models.fields.DecimalField(max_digits=4, decimal_places=2, default=None)
+    latitude = models.fields.DecimalField(max_digits=4, decimal_places=2, default=None, null=True, blank=True)
+    longitude = models.fields.DecimalField(max_digits=4, decimal_places=2, default=None, null=True, blank=True)
 
 
 class Photo(models.Model):
