@@ -7,7 +7,7 @@ from django.urls import reverse
 
 class UsersGroup(models.Model):
     # owner = models.CharField(max_length=100, default=None, editable=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+', default=None, editable=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+', default=None, editable=True)
     name = models.fields.CharField(max_length=150)
     photo_count = models.fields.IntegerField(default=0)
     tags = models.fields.CharField(max_length=200, default="empty")
