@@ -27,7 +27,12 @@ def export(request):
 class GroupCreate(CreateView):
     model = UsersGroup
     form_class = CreateGroupForm
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
     # fields = ['name', 'description', 'users']
+    # template_name = 'photo/usersgroup_form.html'
 
 
 class GroupsView(ListView):
@@ -37,8 +42,6 @@ class GroupsView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return UsersGroup.objects.all().filter(users=user)
-
-    # .filter(Q(users__icontains=user))
+        return UsersGroup.objects.all().filter(Q(users=user) | Q(owner=user)).distinct()
 
     template_name = 'photo/groups.html'

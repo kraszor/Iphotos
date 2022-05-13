@@ -76,7 +76,13 @@ nav a:hover {
     padding-bottom: 120px;
     padding-top: 120px;
     opacity: 0;
+}
+.leftanim {
     transform: translateX(-450px);
+    transition: opacity 1s 0.1s, transform 1.5s ease-in-out;
+}
+.rightanim {
+    transform: translateX(450px);
     transition: opacity 1s 0.1s, transform 1.5s ease-in-out;
 }
 .gridVisible {
