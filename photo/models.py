@@ -27,7 +27,7 @@ class Image(models.Model):
     source = models.CharField(max_length=150)
     resolution_width = models.fields.IntegerField()
     resolution_height = models.fields.IntegerField()
-    size = models.fields.DecimalField(max_digits=4, decimal_places=2)
+    size = models.fields.DecimalField(max_digits=5, decimal_places=3)
 
 
 class Place(models.Model):
