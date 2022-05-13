@@ -32,8 +32,8 @@ class Image(models.Model):
 
 class Place(models.Model):
     name = models.fields.CharField(max_length=100, default="Unknown")
-    latitude = models.fields.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
-    longitude = models.fields.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    latitude = models.fields.DecimalField(null=True, blank=True, max_digits=4, decimal_places=2)
+    longitude = models.fields.DecimalField(null=True, blank=True, max_digits=4, decimal_places=2)
 
 
 class Photo(models.Model):
