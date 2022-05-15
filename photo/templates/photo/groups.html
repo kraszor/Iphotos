@@ -1,10 +1,50 @@
 {% extends 'photo/base.html'%}
 {% block title %}Register{% endblock %}
 {% block body %}
+    <div class="groupsCont">
+{#    <div class="d-flex col-sm-12 col-md-6 justify-content-center" style="width: 90%; margin: 10px;">#}
+    <div class="row">
     {% for group in groups %}
-        {{ group.name }}
-        {{ group.description }}
-        {{ group.users.all }}
-        <h1>{{ group.owner }}</h1>
+        <div class="col-sm-12 col-md-5 groupBox">
+        <div class="row" style="width: 100%">
+        <div class="col-9">
+            <h2>{{ group.name }}</h2>
+            <p>{{ group.description }}</p>
+            <p>Photos: {{ group.photo_count }}</p>
+
+        </div>
+{#        <div class="col-1"></div>#}
+            <div class="col-3 d-flex justify-content-end">
+                <p style="color: grey">{{ group.owner }}</p>
+            </div>
+        </div>
+        <div style="width: 90%; padding: 2px; margin: 5px auto 5px auto">
+            <div class="row" style="width: 100%;">
+            <div class="col-12 d-flex justify-content-end">
+            <div class="scrollUsers">
+                {% for user in group.users.all %}
+                    <div class="d-flex justify-content-center">{{ user }}</div>
+                {% empty %}
+                    <div class="d-flex justify-content-center">No users</div>
+                {% endfor %}
+            </div>
+            </div>
+            </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+        <div style="display: flex; justify-content: left;">
+            <a href="#" role="button" class="btn confirm" style="margin-left: auto;">Update</a>
+             <a href="#" role="button" class="btn confirm deleteBtn">Delete</a>
+         </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        {% if not forloop.counter|divisibleby:"2" %}
+            <div class="col-md-2"></div>
+        {% endif %}
     {% endfor %}
+    </div>
+    </div>
+{#    </div>#}
 {% endblock %}

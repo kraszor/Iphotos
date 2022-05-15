@@ -21,6 +21,10 @@ nav a:hover {
     background-image: linear-gradient(to bottom right, mediumpurple, royalblue);
     color: white;
 }
+.btn.confirm.deleteBtn:hover {
+    background-color: red;
+    background-image: none;
+}
 .btn.confirm:hover {
     color: lightgrey;
 }
@@ -122,6 +126,26 @@ nav a:hover {
     border-radius: 25px;
     height: 50px;
     width: 80%;
+
+}
+.groupsCont {
+    width: 90%;
+    margin: 20px auto 10px auto;
+    padding: 5px;
+}
+.groupBox {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 2px solid mediumpurple;
+    border-radius: 15px;
+}
+.scrollUsers {
+    height: 8ex;
+    width: 100px;
+    overflow-y: scroll;
+    border: 1px solid mediumpurple;
+    border-radius: 15px;
 
 }
 
