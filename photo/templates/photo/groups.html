@@ -9,18 +9,23 @@
         <div class="row" style="width: 100%">
         <div class="col-9">
             <h2>{{ group.name }}</h2>
-            <p>{{ group.description }}</p>
-            <p>Photos: {{ group.photo_count }}</p>
 
         </div>
-{#        <div class="col-1"></div>#}
             <div class="col-3 d-flex justify-content-end">
                 <p style="color: grey">{{ group.owner }}</p>
             </div>
+            <div class="col-9 scrollDesc">
+                <p>{{ group.description }}</p>
+            </div>
+            <div class="col-9">
+                <p>Photos: {{ group.photo_count }}</p>
+            </div>
+{#        <div class="col-1"></div>#}
         </div>
         <div style="width: 90%; padding: 2px; margin: 5px auto 5px auto">
             <div class="row" style="width: 100%;">
-            <div class="col-12 d-flex justify-content-end">
+                <div class="col-8"></div>
+            <div class="col-4">
             <div class="scrollUsers">
                 {% for user in group.users.all %}
                     <div class="d-flex justify-content-center">{{ user }}</div>
@@ -33,15 +38,20 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-start">
         <div style="display: flex; justify-content: left;">
-            <a href="#" role="button" class="btn confirm" style="margin-left: auto;">Update</a>
-             <a href="#" role="button" class="btn confirm deleteBtn">Delete</a>
+            <a href="{% url 'photo:group_update' group.id %}" role="button" class="btn confirm" style="margin-left: auto;">Update</a>
+            <form action="{% url 'photo:group_delete' group.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="group_id" value="{{ group.id }}">
+                <button type="submit" class="btn confirm deleteBtn">Delete</button>
+            </form>
+{#             <a href="{% url 'photo:group_delete' group.id %}" role="button" class="btn confirm deleteBtn">Delete</a>#}
          </div>
             </div>
         </div>
         </div>
         </div>
         {% if not forloop.counter|divisibleby:"2" %}
-            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
         {% endif %}
     {% endfor %}
     </div>

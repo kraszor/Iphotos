@@ -7,11 +7,13 @@ from .models import UsersGroup
 class CreateGroupForm(forms.ModelForm):
     class Meta:
         model = UsersGroup
-        fields = ['name', 'description', 'users']
+        fields = ['name', 'color_group', 'tags', 'description', 'users']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name of the group'}),
+            'color_group': forms.RadioSelect(attrs={'class': 'form-select'}),
+            'tags': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description of the group'}),
-            'users': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'users': forms.CheckboxSelectMultiple(attrs={'class': 'form-select'}),
         }
 
         # def __init__(self, *args, **kwargs):

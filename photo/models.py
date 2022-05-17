@@ -2,18 +2,30 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.urls import reverse
+from .validators import validate_hashtags
 
 # Create your models here.
 
 
 class UsersGroup(models.Model):
-    # owner = models.CharField(max_length=100, default=None, editable=False)
+    COLOR_CHOICES = [
+        ('Green', 'Green'),
+        ('Blue', 'Blue'),
+        ('Red', 'Red'),
+        ('Aqua', 'Aqua'),
+        ('DarkBlue', 'DarkBlue'),
+        ('Generic', 'Generic'),
+        ('Orange', 'Orange'),
+        ('Pink', 'Pink'),
+        ('Violet', 'Violet'),
+        ('Yellow', 'Yellow'),
+    ]
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+', default=1, editable=False)
-    name = models.fields.CharField(max_length=150)
+    name = models.fields.CharField(max_length=100)
     photo_count = models.fields.IntegerField(default=0, editable=False)
-    tags = models.fields.CharField(max_length=200, default="empty")
-    color_group = models.fields.CharField(max_length=50, default="unknown")
-    is_local = models.fields.BooleanField(default=False)
+    tags = models.fields.CharField(max_length=200, default="#none", validators=[validate_hashtags])
+    color_group = models.fields.CharField(max_length=10, choices=COLOR_CHOICES, default=None, null=True)
+    is_local = models.fields.BooleanField(default=False, editable=False)
     create_time = models.fields.DateTimeField(auto_now_add=True)
     edit_time = models.fields.DateTimeField(auto_now=True)
     description = models.fields.TextField(max_length=500)
