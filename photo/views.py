@@ -1,6 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
 from rest_framework import status
@@ -32,7 +34,7 @@ def export(request):
         return response
 
 
-class GroupCreate(CreateView):
+class GroupCreate(LoginRequiredMixin, CreateView):
     model = UsersGroup
     form_class = CreateGroupForm
 
@@ -43,7 +45,7 @@ class GroupCreate(CreateView):
     # template_name = 'photo/usersgroup_form.html'
 
 
-class GroupsView(ListView):
+class GroupsView(LoginRequiredMixin, ListView):
     model = UsersGroup
     context_object_name = 'groups'
     # print(Film.objects.all().order_by('-release_date')[:9])
@@ -54,9 +56,19 @@ class GroupsView(ListView):
 
     template_name = 'photo/groups.html'
 
+
+class GroupsUpdate(UpdateView):
+    model = UsersGroup
+    form_class = CreateGroupForm
+    success_url = reverse_lazy('photo:groups')
+
+
+class GroupsDelete(DeleteView):
+    model = UsersGroup
+    success_url = reverse_lazy('photo:groups')
+
+
 # SERIALIZERS FOR API
-
-
 @api_view(['GET'])
 def api_overview(request):
     api_urls = {

@@ -12,6 +12,8 @@ urlpatterns = [
     path('download_app', views.export, name='download_app'),
     path('group/create/', views.GroupCreate.as_view(), name='create_group'),
     path('groups', views.GroupsView.as_view(), name='groups'),
+    path('groups/<int:pk>', views.GroupsUpdate.as_view(), name='group_update'),
+    path('groups/<int:pk>/delete', views.GroupsDelete.as_view(), name='group_delete'),
     path('api/', views.api_overview),
     path('api/groups', views.groups_list),
     path('api/places', views.places_list),
