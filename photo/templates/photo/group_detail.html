@@ -1,0 +1,31 @@
+{% extends 'photo/base.html'%}
+{% block title %}Detail{% endblock %}
+{% block body %}
+    <div class="groupDetailBox" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+    <div class="col-6">
+        <h1>{{ group.name }}</h1>
+    <p>Owner: {{ group.owner }}</p>
+    <p>{{ group.description }}</p>
+        <p>Color of the group: {{ group.color_group }}</p>
+        <p>Tags: </p>
+        {% for tag in tags %}
+            {{ tag }}&emsp;
+        {% empty %}
+            #none
+        {% endfor %}
+    <br><br><p>Number of photos: {{ group.photo_count }}</p>
+    <p>Creation date: {{ group.create_time }}</p>
+    <p>Last edit: {{ group.edit_time }}</p>
+    </div>
+    <div class="col-5 detailScroll">
+        <div class="groupDetailUsers"><h1>Users</h1></div>
+        {% for user in group.users.all %}
+            <div class="groupDetailUsers"><h2>&nbsp;{{ user }}</h2></div>
+        {% empty %}
+            <div class="groupDetailUsers"><h2>There are no users!</h2></div>
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+{% endblock %}
