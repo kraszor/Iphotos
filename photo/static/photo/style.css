@@ -17,7 +17,7 @@ nav a:hover {
 }
 .btn.confirm {
     margin: 15px 15px 15px 10px;
-    padding: 8px 15px 8px 15px;
+    padding: 8px 10px 8px 10px;
     background-image: linear-gradient(to bottom right, mediumpurple, royalblue);
     color: white;
 }
@@ -150,13 +150,35 @@ nav a:hover {
 
 }
 .scrollDesc {
-    height: 60px;
+    height: 120px;
     overflow-y: scroll;
     margin: 5px;
+}
+.scrollTitle {
+    height: 80px;
+    overflow-y: scroll;
 }
 .formScroll {
     height: 120px;
     overflow-y: scroll;
+}
+.groupDetailBox {
+    width: 90%;
+    margin: 50px auto 100px auto;
+    padding: 20px;
+    background-image: linear-gradient(to bottom right, mediumpurple, royalblue);
+    border-radius: 15px;
+    text-shadow: 3px 3px black;
+}
+.groupDetailUsers {
+    display: flex;
+    justify-content: center;
+}
+.detailScroll {
+    height: 400px;
+    overflow-y: scroll;
+    border-radius: 15px;
+    box-shadow: -3px 3px 10px white;
 }
 
 @media screen and (min-width: 768px) {

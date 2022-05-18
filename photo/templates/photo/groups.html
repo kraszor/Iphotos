@@ -7,7 +7,7 @@
     {% for group in groups %}
         <div class="col-sm-12 col-md-5 groupBox">
         <div class="row" style="width: 100%">
-        <div class="col-9">
+        <div class="col-9 scrollTitle">
             <h2>{{ group.name }}</h2>
 
         </div>
@@ -17,32 +17,35 @@
             <div class="col-9 scrollDesc">
                 <p>{{ group.description }}</p>
             </div>
-            <div class="col-9">
-                <p>Photos: {{ group.photo_count }}</p>
-            </div>
+{#            <div class="col-9">#}
+{#                <p>Photos: {{ group.photo_count }}</p>#}
+{#            </div>#}
 {#        <div class="col-1"></div>#}
         </div>
         <div style="width: 90%; padding: 2px; margin: 5px auto 5px auto">
-            <div class="row" style="width: 100%;">
-                <div class="col-8"></div>
-            <div class="col-4">
-            <div class="scrollUsers">
-                {% for user in group.users.all %}
-                    <div class="d-flex justify-content-center">{{ user }}</div>
-                {% empty %}
-                    <div class="d-flex justify-content-center">No users</div>
-                {% endfor %}
-            </div>
-            </div>
-            </div>
+{#            <div class="row" style="width: 100%;">#}
+{#                <div class="col-8"></div>#}
+{#            <div class="col-4">#}
+{#            <div class="scrollUsers">#}
+{#                {% for user in group.users.all %}#}
+{#                    <div class="d-flex justify-content-center">{{ user }}</div>#}
+{#                {% empty %}#}
+{#                    <div class="d-flex justify-content-center">No users</div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#            </div>#}
+{#            </div>#}
         <div class="row">
             <div class="col-12 d-flex justify-content-start">
         <div style="display: flex; justify-content: left;">
-            <a href="{% url 'photo:group_update' group.id %}" role="button" class="btn confirm" style="margin-left: auto;">Update</a>
+            <a href="{% url 'photo:groups_detail' group.id %}" role="button" class="btn confirm" style="margin-left: auto;">
+                <span class="fas fa-info"></span>&nbsp;Details</a>
+            <a href="{% url 'photo:group_update' group.id %}" role="button" class="btn confirm" style="margin-left: auto;">
+                <span class="fas fa-pen"></span>&nbsp;Update</a>
             <form action="{% url 'photo:group_delete' group.id %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="group_id" value="{{ group.id }}">
-                <button type="submit" class="btn confirm deleteBtn">Delete</button>
+                <button type="submit" class="btn confirm deleteBtn" style="margin-left: auto;"><span class="fas fa-trash"></span>&nbsp;Delete</button>
             </form>
 {#             <a href="{% url 'photo:group_delete' group.id %}" role="button" class="btn confirm deleteBtn">Delete</a>#}
          </div>

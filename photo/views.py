@@ -57,13 +57,27 @@ class GroupsView(LoginRequiredMixin, ListView):
     template_name = 'photo/groups.html'
 
 
-class GroupsUpdate(UpdateView):
+class GroupsDetail(LoginRequiredMixin, DeleteView):
+    model = UsersGroup
+    context_object_name = 'group'
+    template_name = "photo/group_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupsDetail, self).get_context_data(**kwargs)
+        tags = self.object.tags.split('#')[1::]
+        for i in range(len(tags)):
+            tags[i] = '#' + tags[i]
+        context['tags'] = tags
+        return context
+
+
+class GroupsUpdate(LoginRequiredMixin, UpdateView):
     model = UsersGroup
     form_class = CreateGroupForm
     success_url = reverse_lazy('photo:groups')
 
 
-class GroupsDelete(DeleteView):
+class GroupsDelete(LoginRequiredMixin, DeleteView):
     model = UsersGroup
     success_url = reverse_lazy('photo:groups')
 
