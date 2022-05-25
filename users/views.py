@@ -1,5 +1,5 @@
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
@@ -17,6 +17,8 @@ from django.contrib.auth.models import User
 
 
 def login_user(request):
+    if request.user.is_authenticated:
+        return HttpResponseNotFound('Not Found')
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -44,6 +46,8 @@ def logout_user(request):
 
 
 def register_user(request):
+    if request.user.is_authenticated:
+        return HttpResponseNotFound('Not Found')
     if request.method == "POST":
         form = RegisterUserForm(request.POST)
         if form.is_valid():
