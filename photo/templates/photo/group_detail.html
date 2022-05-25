@@ -1,7 +1,17 @@
 {% extends 'photo/base.html'%}
 {% block title %}Detail{% endblock %}
+{% load static %}
+{% block static_files %}
+    <script type="text/javascript" src="{% static "photo/openFolder.js" %}"></script>
+{% endblock %}
 {% block body %}
-    <div class="groupDetailBox" xmlns="http://www.w3.org/1999/html">
+    <div id="folder">
+    <img id="folder_1"
+         src="{% static 'photo/images/BlueAlbum.png' %}"
+         alt="" style="height: 200px; width: 200px;"
+         onclick="openFolder()">
+    </div>
+    <div class="groupDetailBox animateFolder">
     <div class="row">
     <div class="col-6">
         <h1>{{ group.name }}</h1>

@@ -1,6 +1,10 @@
 body {
     background-color: black;
     color: white;
+    height: 100%;
+}
+html {
+    height: 100%;
 }
 nav a {
   text-decoration: none !important;
@@ -163,12 +167,27 @@ nav a:hover {
     overflow-y: scroll;
 }
 .groupDetailBox {
-    width: 90%;
+    width: 0;
     margin: 50px auto 100px auto;
     padding: 20px;
     background-image: linear-gradient(to bottom right, mediumpurple, royalblue);
     border-radius: 15px;
     text-shadow: 3px 3px black;
+    opacity: 0;
+    display: none;
+}
+.animateFolder {
+    transition: all 2s 0.1s;
+}
+.detailBoxVisible {
+    opacity: 1;
+    width: 90%;
+}
+#folder {
+    height: calc(100% - 72px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .groupDetailUsers {
     display: flex;
@@ -178,7 +197,7 @@ nav a:hover {
     height: 400px;
     overflow-y: scroll;
     border-radius: 15px;
-    box-shadow: -3px 3px 10px white;
+    /*box-shadow: -3px 3px 10px white;*/
 }
 
 @media screen and (min-width: 768px) {
