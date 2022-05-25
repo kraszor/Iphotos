@@ -1,20 +1,23 @@
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .forms import CreateGroupForm
 from .models import UsersGroup, Place, Image, Photo
-from .serializers import UsersGroupSerializer,\
-                         PlaceSerializer, \
-                         ImageSerializer,\
-                         PhotoSerializer
+from .serializers import UsersGroupSerializer, \
+    PlaceSerializer, \
+    ImageSerializer, \
+    PhotoSerializer, LoginSerializer
 
 
 def home(request):
@@ -81,23 +84,34 @@ class GroupsDelete(LoginRequiredMixin, DeleteView):
     model = UsersGroup
     success_url = reverse_lazy('photo:groups')
 
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(GroupsDelete, self).get_object()
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
+
 
 # SERIALIZERS FOR API
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def api_overview(request):
     api_urls = {
         'Groups': '/api/groups',
         'Places': '/api/places',
         'Images': '/api/images',
         'Photos': '/api/photos',
-        'Detail of group': '/api/groups/<int:pk>',
+        'Detail of the group': '/api/groups/<int:pk>',
+        'Detail of the place': '/api/places/<int:pk>',
+        'Detail of the image': '/api/images/<int:pk>',
+        'Detail of the photo': '/api/photos/<int:pk>',
     }
     return Response(api_urls)
 
 @api_view(['GET', 'POST'])
 def groups_list(request):
     if request.method == 'GET':
-        groups = UsersGroup.objects.all()
+        groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
         serializer = UsersGroupSerializer(groups, many=True)
         return Response(serializer.data)
 
@@ -112,7 +126,11 @@ def groups_list(request):
 @api_view(['GET', 'POST'])
 def places_list(request):
     if request.method == 'GET':
-        places = Place.objects.all()
+        groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
+        photos_id = list(groups.values_list('photos', flat=True))
+        owned_photos = Photo.objects.filter(pk__in=photos_id)
+        places = [elem.place for elem in owned_photos]
+
         serializer = PlaceSerializer(places, many=True)
         return Response(serializer.data)
 
@@ -127,7 +145,10 @@ def places_list(request):
 @api_view(['GET', 'POST'])
 def images_list(request):
     if request.method == 'GET':
-        images = Image.objects.all()
+        groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
+        photos_id = list(groups.values_list('photos', flat=True))
+        owned_photos = Photo.objects.filter(pk__in=photos_id)
+        images = [elem.image for elem in owned_photos]
         serializer = ImageSerializer(images, many=True)
         return Response(serializer.data)
 
@@ -142,8 +163,10 @@ def images_list(request):
 @api_view(['GET', 'POST'])
 def photos_list(request):
     if request.method == 'GET':
-        photos = Photo.objects.all()
-        serializer = PhotoSerializer(photos, many=True)
+        groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
+        photos_id = list(groups.values_list('photos', flat=True))
+        owned_photos = Photo.objects.filter(pk__in=photos_id)
+        serializer = PhotoSerializer(owned_photos, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -156,11 +179,8 @@ def photos_list(request):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def group_detail(request, pk):
-    """
-    Retrieve, update or delete a code snippet.
-    """
     try:
-        group = UsersGroup.objects.get(pk=pk)
+        group = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct().get(pk=pk)
     except UsersGroup.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -178,3 +198,106 @@ def group_detail(request, pk):
     elif request.method == 'DELETE':
         group.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def place_detail(request, pk):
+    try:
+        groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
+        photos_id = list(groups.values_list('photos', flat=True))
+        owned_photos = Photo.objects.filter(pk__in=photos_id)
+        places = [elem.place for elem in owned_photos]
+        place = Place.objects.get(pk=pk)
+        if place not in places:
+            raise Place.DoesNotExist
+    except Place.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = PlaceSerializer(place)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = PlaceSerializer(place, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        place.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def image_detail(request, pk):
+    try:
+        groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
+        photos_id = list(groups.values_list('photos', flat=True))
+        owned_photos = Photo.objects.filter(pk__in=photos_id)
+        images = [elem.image for elem in owned_photos]
+        image = Image.objects.get(pk=pk)
+        if image not in images:
+            raise Image.DoesNotExist
+    except Image.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ImageSerializer(image)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ImageSerializer(image, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        image.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def photo_detail(request, pk):
+    try:
+        groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
+        photos_id = list(groups.values_list('photos', flat=True))
+        owned_photos = list(Photo.objects.filter(pk__in=photos_id))
+        photo = Photo.objects.get(pk=pk)
+        if photo not in owned_photos:
+            raise Photo.DoesNotExist
+    except Photo.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = PhotoSerializer(photo)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = PhotoSerializer(photo, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        photo.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class LoginView(APIView):
+
+    permission_classes = (AllowAny,)
+
+    def post(self, request, format=None):
+        serializer = LoginSerializer(data=self.request.data,
+                                     context={'request': self.request})
+
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        login(request, user)
+        return Response(None, status=status.HTTP_202_ACCEPTED)
+
+
+

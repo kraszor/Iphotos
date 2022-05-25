@@ -16,5 +16,7 @@ class CreateGroupForm(forms.ModelForm):
             'users': forms.CheckboxSelectMultiple(attrs={'class': 'form-select'}),
         }
 
-        # def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        super(CreateGroupForm, self).__init__(*args, **kwargs)
+        self.fields['tags'].help_text = 'Write tags for your group using # and no spaces'
         #     self.fields['users'] = forms.ModelMultipleChoiceField(queryset=User.objects.get.all().exclude(username='kraszor'), widget=forms.SelectMultiple(attrs={'class': 'form-control'}))

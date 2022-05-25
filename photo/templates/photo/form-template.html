@@ -4,6 +4,9 @@
             <div class="fieldWrapper">
                 {{ field.label_tag }}
                 {{ field }}
+                {% if field.help_text %}
+                    <div class="form-text text-muted">{{ field.help_text|safe }}</div>
+                {% endif %}
             <br>
             </div>
         {% endfor %}
