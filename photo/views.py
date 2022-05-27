@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponse, Http404
@@ -298,6 +298,13 @@ class LoginView(APIView):
         user = serializer.validated_data['user']
         login(request, user)
         return Response(None, status=status.HTTP_202_ACCEPTED)
+
+
+class LogoutView(APIView):
+
+    def get(self, request, format=None):
+        logout(request)
+        return Response(status=status.HTTP_200_OK)
 
 
 

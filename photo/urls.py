@@ -17,6 +17,7 @@ urlpatterns = [
     path('groups/<int:pk>/delete', views.GroupsDelete.as_view(), name='group_delete'),
     path('api/', views.api_overview),
     path('api/login', views.LoginView.as_view()),
+    path('api/logout', views.LogoutView.as_view()),
     path('api/groups', views.groups_list),
     path('api/places', views.places_list),
     path('api/images', views.images_list),
