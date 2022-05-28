@@ -27,12 +27,15 @@ Desktopowa przeglądarka graficzna z możliwością tagowania zdjęć oraz tworz
 - Tworzenie grup, dodwania do nich zdjęć i użytkowników (Albumy online)
 - Aplikacja desktopowa zgodna z konwencją MVVM, a webowa z konwecją MVT
 
+## Projekt Aplikacji
+
 ### Diagram Warstw
 ![Screenshot](images/DiagramWarstw.png)
 
 ### Relacje encji w bazie danych SQLite
 
 ![Screenshot](images/Diagram_.png)
+
 
 ## Aplikacja desktopowa
 
@@ -81,6 +84,38 @@ Program dzieli się na podstrony oznaczone odpowiednimi ikonami:
         online dla grup użytkowników. Umożliwia też przeniesienie na stronę rejestracji w webowej części
         aplikacji.
   
+#### Główne Klasy Aplikacji Desktopowej:
+
+- DatabaseHandler - klasa odpowiedzialna za CRUD bazy lokalnej
+- DatabaseContext - klasa konfiguracyjna Bazy danych (EntityFrameworkCore)
+- klasy w folderze DataObject - konwersja encji otrzymanych z bazy danych na obiekty wykorzystywane w projekcie
+- klasy w folderze Models - modele danych zgodne z konwencją MVVM
+- DatabaseApiHandler - obsługa API do uzyskiwania albumów online
+- GoogleDriveHandler - wysyłanie/odbiór zdjęć online
+- SearchEngine - klasa odpowiedzialna za wyszukiwanie zdjęć ustalonych przez użytkownika
+- DataHandler - obsługa ścieżek plików np. ścieżka zdjęcia
+##### ViewModels
+
+- AlbumViewModel, PlacesViewModel, SearchViewModel, HomePageViewModel, AccountViewModel -
+ klasy zgodne z MVVM odpowiedzialne za logikę biznesową podstron opisanych powyżej,
+każda podstrona zawiera pomniejsze klasy odpowiedzialne za logikę biznesową szczegółowych elementów np. listy zdjęć
+
+- MainWindowViewModel - uwtorzenie wszystkich podstawowych viewmodeli
+
+##### Views
+
+- AlbumView, PlacesView, SearchView, HomePageView, AccountView -
+ klasy zgodne z MVVM odpowiedzialne za wartwę widoczną użytkownikowi.
+
+ Views wykorzystują głównie kod napisany w XAML. Połączenia z ViewModelami wykonywane są
+ za pomocą "DataContext".
+ Wszystkie polecenia zadane przez użytkownika przekazywane są do programu przy wykorzystaniu komend
+ które posiadają metodę Execute wykonującą rozkaz użytkownika.
+ Wszystkie komendy znajdują się w folderze Commands.
+
+Naszą aplikację desktopową inicjalizuje klasa App znajdująca się w pliku App.xaml
+
+
 ## Prezentacja
 
 ### Aplikacja desktopowa
