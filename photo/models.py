@@ -37,6 +37,7 @@ class UsersGroup(models.Model):
 
 
 class Image(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+', default=1, editable=False)
     source = models.CharField(max_length=150)
     resolution_width = models.fields.IntegerField()
     resolution_height = models.fields.IntegerField()
@@ -44,12 +45,14 @@ class Image(models.Model):
 
 
 class Place(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+', default=1, editable=False)
     name = models.fields.CharField(max_length=100, default="Unknown")
     latitude = models.fields.DecimalField(null=True, blank=True, max_digits=4, decimal_places=2)
     longitude = models.fields.DecimalField(null=True, blank=True, max_digits=4, decimal_places=2)
 
 
 class Photo(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+', default=1, editable=False)
     title = models.fields.CharField(max_length=150)
     tags = models.fields.CharField(max_length=300)
     date_taken = models.fields.DateTimeField()
@@ -58,7 +61,7 @@ class Photo(models.Model):
     place = models.ForeignKey(Place, on_delete=models.SET_DEFAULT, default='Unknown')
 
     def save(self, *args, **kwargs):
-        super().save(self,*args, **kwargs)
+        super(Photo, self).save(*args, **kwargs)
         group = UsersGroup.objects.get(pk=self.album.id)
         group.photo_count += 1
         group.save()

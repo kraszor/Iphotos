@@ -118,7 +118,7 @@ def groups_list(request):
     elif request.method == 'POST':
         serializer = UsersGroupSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -129,7 +129,11 @@ def places_list(request):
         groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
         photos_id = list(groups.values_list('photos', flat=True))
         owned_photos = Photo.objects.filter(pk__in=photos_id)
+        owned_places = Place.objects.filter(Q(owner=request.user))
+        owned_places = list(owned_places)
         places = [elem.place for elem in owned_photos]
+        places.extend(owned_places)
+        places = set(places)
 
         serializer = PlaceSerializer(places, many=True)
         return Response(serializer.data)
@@ -137,7 +141,7 @@ def places_list(request):
     elif request.method == 'POST':
         serializer = PlaceSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -148,14 +152,18 @@ def images_list(request):
         groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
         photos_id = list(groups.values_list('photos', flat=True))
         owned_photos = Photo.objects.filter(pk__in=photos_id)
+        owned_images = Image.objects.filter(Q(owner=request.user)).distinct()
+        owned_images = list(owned_images)
         images = [elem.image for elem in owned_photos]
+        images.extend(owned_images)
+        images = set(images)
         serializer = ImageSerializer(images, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
         serializer = ImageSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -165,14 +173,14 @@ def photos_list(request):
     if request.method == 'GET':
         groups = UsersGroup.objects.filter(Q(users=request.user) | Q(owner=request.user)).distinct()
         photos_id = list(groups.values_list('photos', flat=True))
-        owned_photos = Photo.objects.filter(pk__in=photos_id)
+        owned_photos = Photo.objects.filter(Q(pk__in=photos_id) | Q(owner=request.user))
         serializer = PhotoSerializer(owned_photos, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
         serializer = PhotoSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
