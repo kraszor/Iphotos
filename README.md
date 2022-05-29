@@ -32,6 +32,9 @@ Desktopowa przeglądarka graficzna z możliwością tagowania zdjęć oraz tworz
 ### Diagram Warstw
 ![Screenshot](images/DiagramWarstw.png)
 
+### Schemat aplikacji i jej działanie
+![Screenshot](images/iphotos.png)
+
 ### Relacje encji w bazie danych SQLite
 
 ![Screenshot](images/Diagram_.png)
@@ -49,6 +52,10 @@ Do działania aplikacji wymagane są następujące Nuget Packages:
 - GMap.NET.Core
 - GMap.NET.WinPresentation
 - Google.Apis.Drive.v3
+
+Przed zbudowaniem aplikacji (najlepiej w Microsoft Visual Studio)
+należy w package manager console wpisać update-database
+w celu zainicjalizowania bazy zdalnej na swoim komputerze  
 
 Aplikacje można włączyć za pomomocą pliku .exe znajdującego się pod podaną ścieżką repozytorium:
 iPhoto\bin\Debug\net6.0-windows\iPhoto.exe
