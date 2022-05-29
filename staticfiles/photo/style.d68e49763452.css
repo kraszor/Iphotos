@@ -148,42 +148,23 @@ nav a:hover {
 .scrollUsers {
     height: 8ex;
     width: 100px;
-    overflow-y: scroll;
+    overflow-y: auto;
     border: 1px solid mediumpurple;
     border-radius: 15px;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-.scrollUsers::-webkit-scrollbar {
-    display: none;
+
 }
 .scrollDesc {
     height: 120px;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin: 5px;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-.scrollDesc::-webkit-scrollbar {
-    display: none;
 }
 .scrollTitle {
     height: 80px;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-.scrollTitle::-webkit-scrollbar {
-    display: none;
+    overflow-y: auto;
 }
 .formScroll {
     height: 120px;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-.formScroll::-webkit-scrollbar {
-    display: none;
+    overflow-y: auto;
 }
 .groupDetailBox {
     width: 0;
@@ -214,13 +195,9 @@ nav a:hover {
 }
 .detailScroll {
     height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
     border-radius: 15px;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-.detailScroll::-webkit-scrollbar {
-    display: none;
+    /*box-shadow: -3px 3px 10px white;*/
 }
 
 @media screen and (min-width: 768px) {
