@@ -71,12 +71,6 @@ def register_user(request):
             email.send()
             messages.success(request, "Please confirm your email address to complete the registration")
             return redirect('users:login')
-            # username = form.cleaned_data['username']
-            # password = form.cleaned_data['password1']
-            # user = authenticate(username=username, password=password)
-            # login(request, user)
-            # messages.success(request, "Registration successful!")
-            # return redirect("photo:home")
     else:
         form = RegisterUserForm()
 
@@ -92,8 +86,6 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        # login(request, user)
-        # return redirect('home')
         messages.success(request, 'Thank you for your email confirmation. Now you can login your account.')
         return redirect("users:login")
     else:

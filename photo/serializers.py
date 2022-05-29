@@ -28,6 +28,12 @@ class PhotoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'date_joined']
+
+
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(label="Username", write_only=True)
     password = serializers.CharField(label="Password",

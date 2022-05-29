@@ -2,7 +2,6 @@
 {% block title %}Register{% endblock %}
 {% block body %}
     <div class="groupsCont">
-{#    <div class="d-flex col-sm-12 col-md-6 justify-content-center" style="width: 90%; margin: 10px;">#}
     <div class="row">
     {% for group in groups %}
         <div class="col-sm-12 col-md-5 groupBox">
@@ -17,24 +16,8 @@
             <div class="col-9 scrollDesc">
                 <p>{{ group.description }}</p>
             </div>
-{#            <div class="col-9">#}
-{#                <p>Photos: {{ group.photo_count }}</p>#}
-{#            </div>#}
-{#        <div class="col-1"></div>#}
         </div>
         <div style="width: 90%; padding: 2px; margin: 5px auto 5px auto">
-{#            <div class="row" style="width: 100%;">#}
-{#                <div class="col-8"></div>#}
-{#            <div class="col-4">#}
-{#            <div class="scrollUsers">#}
-{#                {% for user in group.users.all %}#}
-{#                    <div class="d-flex justify-content-center">{{ user }}</div>#}
-{#                {% empty %}#}
-{#                    <div class="d-flex justify-content-center">No users</div>#}
-{#                {% endfor %}#}
-{#            </div>#}
-{#            </div>#}
-{#            </div>#}
         <div class="row">
             <div class="col-12 d-flex justify-content-start">
         <div style="display: flex; justify-content: left;">
@@ -47,7 +30,6 @@
                 <input type="hidden" name="group_id" value="{{ group.id }}">
                 <button type="submit" class="btn confirm deleteBtn" style="margin-left: auto;"><span class="fas fa-trash"></span>&nbsp;Delete</button>
             </form>
-{#             <a href="{% url 'photo:group_delete' group.id %}" role="button" class="btn confirm deleteBtn">Delete</a>#}
          </div>
             </div>
         </div>
@@ -59,5 +41,4 @@
     {% endfor %}
     </div>
     </div>
-{#    </div>#}
 {% endblock %}

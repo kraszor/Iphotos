@@ -14,7 +14,6 @@
     <br/>
     <form action="{% url 'users:register' %}" method="POST">
         {% csrf_token %}
-{#        <div class="form-group"><span class="text-danger small">{{ form.errors }}</span></div>#}
         {% for field in form %}
             <div class="fieldWrapper">
                 <span class="text-danger small">{{ field.errors }}</span>

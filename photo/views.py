@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
@@ -17,7 +18,7 @@ from .models import UsersGroup, Place, Image, Photo
 from .serializers import UsersGroupSerializer, \
     PlaceSerializer, \
     ImageSerializer, \
-    PhotoSerializer, LoginSerializer
+    PhotoSerializer, LoginSerializer, UserSerializer
 
 
 def home(request):
@@ -29,7 +30,7 @@ def download(request):
 
 
 def export(request):
-    filename = "test.zip" # this is the file people must download
+    filename = "test.zip"
     with open(filename, 'rb') as f:
         response = HttpResponse(f.read(), content_type='application/zip')
         response['Content-Disposition'] = 'attachment; filename=' + filename
@@ -44,14 +45,11 @@ class GroupCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
-    # fields = ['name', 'description', 'users']
-    # template_name = 'photo/usersgroup_form.html'
 
 
 class GroupsView(LoginRequiredMixin, ListView):
     model = UsersGroup
     context_object_name = 'groups'
-    # print(Film.objects.all().order_by('-release_date')[:9])
 
     def get_queryset(self):
         user = self.request.user
@@ -85,7 +83,6 @@ class GroupsDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('photo:groups')
 
     def get_object(self, queryset=None):
-        """ Hook to ensure object is owned by request.user. """
         obj = super(GroupsDelete, self).get_object()
         if not obj.owner == self.request.user:
             raise Http404
@@ -107,6 +104,15 @@ def api_overview(request):
         'Detail of the photo': '/api/photos/<int:pk>',
     }
     return Response(api_urls)
+
+
+@api_view(['GET'])
+def users_list(request):
+    if request.method == 'GET':
+        users = User.objects.filter(pk=request.user.id).distinct()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
 
 @api_view(['GET', 'POST'])
 def groups_list(request):
