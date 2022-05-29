@@ -3,14 +3,3 @@ from django.contrib import admin
 
 # Register your models here.
 
-
-# class UsersGroupImageInline(admin.TabularInline):
-#     model = UsersGroupImages
-#     extra = 1
-#
-#
-# class UserGroupAdmin(admin.ModelAdmin):
-#     inlines = [UsersGroupImageInline, ]
-#
-#
-# admin.site.register(UsersGroup, UserGroupAdmin)
