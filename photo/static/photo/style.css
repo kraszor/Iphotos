@@ -148,23 +148,23 @@ nav a:hover {
 .scrollUsers {
     height: 8ex;
     width: 100px;
-    overflow-y: scroll;
+    overflow-y: auto;
     border: 1px solid mediumpurple;
     border-radius: 15px;
 
 }
 .scrollDesc {
     height: 120px;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin: 5px;
 }
 .scrollTitle {
     height: 80px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .formScroll {
     height: 120px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .groupDetailBox {
     width: 0;
@@ -195,7 +195,7 @@ nav a:hover {
 }
 .detailScroll {
     height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
     border-radius: 15px;
     /*box-shadow: -3px 3px 10px white;*/
 }
@@ -211,7 +211,6 @@ nav a:hover {
     }
     .imageRight .gridImage {
         grid-column: span 4;
-        -webkit-box-ordinal-group: 3;
         order: 2;
         margin-top: auto;
         margin-bottom: auto;
@@ -219,8 +218,6 @@ nav a:hover {
     .imageRight .gridDescription {
         margin-top: 0;
         grid-column: span 4;
-        -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
         order:1
     }
 
@@ -233,24 +230,17 @@ nav a:hover {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
         flex-direction: column;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
         justify-content:center
     }
 }
 @media screen and (min-width: 1024px) {
     .imageLeft .gridImage {
         grid-column: span 7;
-        -webkit-box-ordinal-group: 2;
         order: 1;
     }
     .imageLeft .gridDescription {
         grid-column: 9/span 4;
-        -webkit-box-ordinal-group: 3;
         order: 2;
     }
     .imageRight .gridImage {
