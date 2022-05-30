@@ -4,15 +4,15 @@
     <div class="form_container">
     <h1>Login</h1>
     <br/>
-    <form action="" method="POST">
+    <form method="POST">
         {% csrf_token %}
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input placeholder="Username" type="text" class="form-control" name="username" id="username" aria-describedby="usernameHelp">
+                <input placeholder="Username" type="text" class="form-control" name="username" id="username">
             </div>
             <div class="mb-3">
                 <label for="password1" class="form-label">Password</label>
-                <input placeholder="Password" type="password" id="password1" class="form-control" name="password" aria-describedby="password1Help">
+                <input placeholder="Password" type="password" id="password1" class="form-control" name="password">
             </div>
         <input type="hidden" name="next" value="{{ request.path }}">
         <div style="display: flex; justify-content: right;">
