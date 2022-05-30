@@ -225,8 +225,11 @@ REST API
 
 ### Aplikacja webowa
 
-![Screenshot](images/275003850_697706734911582_2164206151481655743_n.png)
-![Screenshot](images/275350178_246071544326431_271352954379807537_n.png)
-![Screenshot](images/275482231_690834268895824_6326811759053373111_n.png)
-![Screenshot](images/275645700_371907327939747_3411847957607684256_n.png)
-![Screenshot](images/276172909_384364279913047_7058174483221134755_n.png)
+![Screenshot](images/web_1.png)
+![Screenshot](images/web_2.png)
+![Screenshot](images/web_3.png)
+![Screenshot](images/web_4.png)
+![Screenshot](images/web_5.png)
+![Screenshot](images/web_6.png)
+![Screenshot](images/web_7.png)
+![Screenshot](images/web_8.png)
