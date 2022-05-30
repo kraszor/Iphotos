@@ -39,6 +39,10 @@ Desktopowa przeglądarka graficzna z możliwością tagowania zdjęć oraz tworz
 
 ![Screenshot](images/Diagram_.png)
 
+### Relacje encji w bazie danych PostreSQL - Django
+
+![Screenshot](images/uml_graph.png)
+
 
 ## Aplikacja desktopowa
 
@@ -127,7 +131,7 @@ Naszą aplikację desktopową inicjalizuje klasa App znajdująca się w pliku Ap
 
 ### Uruchomienie
 
-W celu uruchomienia prototypu aplikacji należy wejść w poniższy link:<br>
+W celu uruchomienia aplikacji należy wejść w poniższy link:<br>
 https://iphotos-pap.herokuapp.com<br>
 
 ### Sposób wykonania deploy'a
@@ -153,6 +157,61 @@ Po stowrzeniu aplikacji możemy zainicializować repozytorium lokale, dodać do 
 `git commit -m <nazwa>`<br>
 `git push heroku master`<br>
 Heroku stworzy na podstawie naszych plików aplikacjie, jeżeli nie napotka błędów wygeneruje się link dizęki, któremu możemy z niej korzystać. Zarządzać aplikacją np. jej zmiennymi środowiskowymi możemy w panelu na stronie internetowej lub poprzez terminal.
+
+### Modele - Encje bazy danych
+
+- UsersGroup - model związany z albumami online
+- User - model użytkownika, używany domyślny, dostępny w django
+- Place - model opisujący miejsce (miejsce wykonania zdjęcia)
+- Image - model dotyczący szczegółów do przetwarzania zdjęcia
+- Photo - model dotyczący zdjęć, ich opis, tagowanie, źródło, album
+- Dodatkowe modele autoryzacyjne i związane z panelem administratora stworzene przez django
+
+### Dostępne adresy URL
+
+*iphotos-pap.herokuapp.com*
+
+- */download* - strona z możliwością pobrania aplikacji
+- */download_app* - url uruchamiające pobieranie aplikacji
+- */group/create* - strona odpowiedzialna za tworzenie grupy/albumu online
+- */groups* - strona wyświetlająca informacje o wszystkich albumach danego użytkownika
+- */groups/\<int:pk\>* - strona z detalicznymi informacjami o albumie o danym id
+- */groups/update/\<int:pk\>* - strona z możliwością edycji albumu o danym id
+- */groups/\<int:pk\>/delete* - url powodujące usunięcia albumu o danym id
+- */users/login_user* - strona służąca do logowania użytkownika
+- */users/logout_user - url powodujące wylogowanie użytkownika
+- */users/register_user* - strona służąca do zarejestrowania przez użytkownika
+- */users/profile* - strona ukazująca informacje o koncie użytkownika
+- */users/edit_profile* - strona służąca do zmiany danych konta
+- */users/change_password* - strona służąca do zmiany hasła dla konta
+- */users/reset_password* - url uruchamiające procedurę restaru hasła
+
+REST API
+- */api* - strona wskazująca możliwe url dla api
+- */api/login* - część api służąca do logowania użytkownika
+- */api/logout* - część api służąca do wylogowania użytkownika
+- */api/users* - część api ukazująca informacje o zalogowanym użytkowniku
+- */api/groups* - część api zawierająca informacje o albumach, do których ma dostęp zalogowany użytkownik
+- */api/places* - część api zawierająca informacje o miejscach, do których ma dostęp zalogowany użytkownik
+- */api/images* - część api zawierająca informacje techiczne o zdjęciach, do których ma dostęp zalogowany użytkownik
+- */api/photos* - część api zawierająca informacje o zdjęciach, do których ma dostęp zalogowany użytkownik
+- */api/groups/\<int:pk\>* - część api zawierająca informacje o albumie o danym id
+- */api/places/\<int:pk\>* - część api zawierająca informacje o miejscu o danym id
+- */api/images/\<int:pk\>* - część api zawierająca techniczne informacje o zdjęciu o danym id
+- */api/photos/\<int:pk\>* - część api zawierająca informacje o zdjęciu o danym id
+
+### Walidacja CSS i HTML
+
+![Screenshot](images/css_val.png)
+![Screenshot](images/html_val.png)
+
+### Funkcjonalność aplikacji webowej
+
+- Konta użytkowników - użytkownik może stworzyc konto podając nazwe użytkownika, imię, nazwisko, adres email oraz hasło, następie musi aktywować konto poprzez link otrzymany w mailu. Posiadając konto, może się na nie logować, zarządzać nim oraz korzystać z dodatkowych funkcjonalności nie dostępnych dla niezalogowanych użytkowników
+- Pobieranie aplikacji - aplikacja webowa daje możliwość pobrania aplikacji desktopowej
+- Albumy online - w aplikacji można tworzyć, przeglądać, edytować i usuwać albumy online do dzielenia zdjęć z innymi użytkownikami
+- Rest api - aplikacja zawiera rest api do komunikacji pomiędzy aplikacją desktopową i aplikacją webową
+- Strona startowa - strona startowa prezentuje użytkownikowi możliwości jakie daje aplikacja dektopowa
 
 
 ## Prezentacja
