@@ -232,4 +232,3 @@ REST API
 ![Screenshot](images/web_5.png)
 ![Screenshot](images/web_6.png)
 ![Screenshot](images/web_7.png)
-![Screenshot](images/web_8.png)
