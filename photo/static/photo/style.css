@@ -123,6 +123,7 @@ nav a:hover {
 .featureImage {
     max-width: 678px;
     max-height: 440px;
+    border-radius: 20px;
 }
 .gridDescription {
     color: white;
