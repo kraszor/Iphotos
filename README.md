@@ -222,7 +222,10 @@ REST API
 ![Screenshot](images/prototipe2.png)
 ![Screenshot](images/prototipe3.png)
 ![Screenshot](images/prototipe4.png)
-
+![Screenshot](images/iphotos_konto.png)
+![Screenshot](images/iphotos_zdjecie.png)
+![Screenshot](images/iphotos_miejsca.png)
+![Screenshot](images/iphotos_albumy.png)
 ### Aplikacja webowa
 
 ![Screenshot](images/web_1.png)
