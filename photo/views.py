@@ -30,7 +30,7 @@ def download(request):
 
 
 def export(request):
-    filename = "test.zip"
+    filename = "iPhoto_x64.zip"
     with open(filename, 'rb') as f:
         response = HttpResponse(f.read(), content_type='application/zip')
         response['Content-Disposition'] = 'attachment; filename=' + filename
