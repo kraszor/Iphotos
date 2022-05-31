@@ -71,11 +71,11 @@ class Photo(models.Model):
 
     def delete(self, *args, **kwargs):
         group = UsersGroup.objects.get(pk=self.album.id)
+        super(Photo, self).delete(*args, **kwargs)
         summary = 0
         for elem in list(group.photos.all()):
             summary += 1
         group.photo_count = summary
         group.save()
-        super(Photo, self).delete(*args, **kwargs)
 
 
