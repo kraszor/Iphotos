@@ -217,7 +217,7 @@ REST API
 ## Prezentacja
 
 ### Aplikacja desktopowa
-
+![Screenshot](images/iphotos_logo.png)
 ![Screenshot](images/prototipe1.png)
 ![Screenshot](images/prototipe2.png)
 ![Screenshot](images/prototipe3.png)
